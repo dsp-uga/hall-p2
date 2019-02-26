@@ -2,9 +2,15 @@ import os
 import tarfile
 
 def extract_tars():
-#creates new folder data within data and extracts all tar files into it
+	
+	"""creates new folder data within data and extracts all tar files into it
+	"""
+	#loops over all directories within data folder
 	for filename in os.listdir('../dataset/data'):
-		print(filename)
+		#prints filename for testing
+		#print(filename)
+		#opens tarfile into tar object for conversion. 
+		
 		tar=tarfile.open('../dataset/data/'+filename)
 		tar.extractall('../dataset')
 		tar.close()
