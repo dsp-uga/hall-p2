@@ -53,3 +53,17 @@ def normalize_img(grey_image):
     #dividing each pixel value with the range to get the normalized image
     grey_image = grey_image/range_val
     return grey_image
+
+def sobel_operator(img):
+    '''
+    This function takes as input an image applies sobel operator to it
+    and returns the image.
+    '''
+    return sobel(img)
+
+def roberts_operator(img):
+    '''
+    This function takes as input an image applies roberts operator to it
+    and returns the image.
+    '''
+    return roberts(img)
