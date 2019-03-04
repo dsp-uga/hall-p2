@@ -8,62 +8,69 @@ This function takes an image and return the mean value of its pixels.
 
 
 
-def mean_center(image):
-'''
-This function takes as an input an image and center it around
-the mean value of the pixels and returns the image.
-'''
-    #converting image to np.array
-    img = np.array(image)
-    mean_value = mean(img)
-
-    return mean_value - img
-
-def merge_images(img_data):
+def mean_center(whole_data):
     '''
-    This function taks as input folder containing the images.
-    Merges all the images in the folder to one image and return
-    the merged image.
+    This function takes as input whole data which is the list of list
+    and perform mean centering on all the frames and return the list of list.
     '''
-    #copying the first image in the folder into a variable
-    img1 = img_data[0]
+    mean_centered_data = []
+    mean_img_data = []
+    for i in range(0,len(whole_data)):
+        for j in range(0,len(whole_data[i])):
+            #converting the image to numpy array
+            img = np.array(whole_data[i][j])
+            #passing the img to the function to calculate the mean
+            mean_value = mean(img)
+            #subtractin each pixel of the image from mean
+            img = mean_value - img
+            #appending the image to the list
+            mean_img_data.append(img)
+            #removing the previously stored image from the memory
+            del img
+        #appending the list of frames into a new list
+        mean_centered_data.append(mean_img_data)
+        #deleting the previous list of images from the memory
+        del mean_img_data
 
-    #looping through the rest of the images
-    for j in range(1, len(img_data)):
-        #copying the current image in a variable
-        img2 = img_data[j]
-        #merging the current image with the first image and overwriting the first image with the new merged image
-        img1 = cv.addWeighted(img1, 0.5, img2, 0.5, 0)
-    #reutrning the final merged image
-    return img1
+    return mean_centered_data
 
-def normalize_img(grey_image):
+def merge_images(whole_data):
     '''
-    This function takes as an input a greyscale image, normalize the image and
-    returns the normalized image.
+    This function takes as input the list of list of the whole data, merge all the
+    frames into one and returns a list containing one frame per file.
     '''
+    merged_data = []
 
-    #finding the minimum pixel value in the image.
-    min_val = np.amin(grey_image)
-    #finding the maximum pixel value in the image
-    max_val = np.amax(grey_image)
-    #finding the range of the pixel values and storing in a variable.
-    range_val = max_val - min_val
+    #looping through the
+    for i in range(0, len(whole_data)):
+        #storing the first frame for the ith file
+        img1 = whole_data[i][0]
 
-    #dividing each pixel value with the range to get the normalized image
-    grey_image = grey_image/range_val
-    return grey_image
+        #looping through all the frames of ith file
+        for j in range(1, len(whole_data[i])):
+            img2 = whole_data[i][j]
+            #merging img2 and img1 into one and overwriting img1
+            img1 = cv.addWeighted(img1, 0.5, img2, 0.5, 0)
+        #after merging all the images appending the final image in the list
+        merged_data.append(img1)
+    #returning the list
+    return merged_data
 
-def sobel_operator(img):
-    '''
-    This function takes as input an image applies sobel operator to it
-    and returns the image.
-    '''
-    return sobel(img)
+def normalize_img(whole_data):
+    normalized_data = []
+    for i in range(0,len(whole_data)):
+        normalize_data_img = []
+        for j in range(0, len(whole_data[i])):
+            min_val = np.amin(whole_data[i][j])
+            max_val = np.amax(whole_data[i][j])
+            range_val = max_val - min_val
+            grey_image = whole_data[i][j] - min_val/range_val
+            normalize_data_img.append(grey_image)
+            #deleting the previous image from the memory
+            del grey_image
+        normalized_data.append(normalize_data_img)
+        del normalize_data_img
+    return normalized_data
 
-def roberts_operator(img):
-    '''
-    This function takes as input an image applies roberts operator to it
-    and returns the image.
-    '''
-    return roberts(img)
+def reshape_image(img, x,y):
+    return cv.resize(img,(x,y), interpolation = cv.INTER_CUBIC)
