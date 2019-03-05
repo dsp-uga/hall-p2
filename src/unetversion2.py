@@ -1,9 +1,4 @@
 
-# coding: utf-8
-
-# In[1]:
-
-
 from keras.models import Model
 from keras.layers import Input, concatenate, Conv2D, MaxPooling2D, Conv2DTranspose
 from keras.optimizers import Adam
@@ -17,8 +12,6 @@ import os as os
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 
-
-# In[2]:
 
 
 def get_train_names():
@@ -40,16 +33,6 @@ def get_test_names():
     test_names=f.read().splitlines()
     print(len(test_names))
     return test_names
-
-
-# In[3]:
-
-
-train_names=get_train_names()
-test_names=get_test_names()
-
-
-# In[4]:
 
 
 def data_video_dictionary(train_names): 
@@ -75,33 +58,23 @@ def data_video_dictionary(train_names):
     return dict_videos
 
 
-# In[5]:
-
-
-#dict_videos_test=data_video_dictionary(test_names)
-
-
-# In[6]:
-
 
 def get_optical_dict(train_names,path="train_optical_flow"): 
     dict_optical={}
+	"""
+	result of optical is taken as an output from a different file. 
+	"""
     for name in train_names: 
         dict_optical[name]= cv.imread(path+"/"+name+".png",cv.IMREAD_GRAYSCALE)        
     return dict_optical    
 
 
-# In[7]:
-
-
-dict_one=get_optical_dict(train_names)
-type(dict_one[train_names[0]])
-
-
-# In[8]:
-
 
 def variance_on_images(dict_videos,train_names,hop=1,scale=1): 
+	"""
+	calculate variance of 100 images and creates a dictionary of them with respective train or test lists. Note that train names are used 
+	, but the function is general. 
+	"""
     dict_videos_mean={}
     dict_videos_variance={}
     for name in train_names:
@@ -130,9 +103,6 @@ def variance_on_images(dict_videos,train_names,hop=1,scale=1):
 #hop of 15 is used because Ciliary motion does 5-6 oscillations in 1 frame..so, 15*6 will capture those oscillations
 
 
-# In[38]:
-
-
 def prepare_variance_data(dict_videos,train_names): 
     """
     prepares training data for processing ..
@@ -141,7 +111,6 @@ def prepare_variance_data(dict_videos,train_names):
     1)Merge 100 frames and normalize the final images in all 211 
     2)take list of images , and convert them to 256,256.. ie resize them.
     3) stack images into (211,256,256,1)
-    4) 
     """
     dict_videos_mean,dict_videos_variance=variance_on_images(dict_videos,train_names,hop=4,scale=2)
     merged_images=[] #merged and normalized images..list
@@ -165,7 +134,6 @@ def prepare_variance_data(dict_videos,train_names):
     return train_nparray
 
 
-# In[39]:
 
 
 def create_train_nparray(image_list): 
@@ -178,15 +146,12 @@ def create_train_nparray(image_list):
     return train_nparray
 
 
-# In[40]:
 
 
 def load_train(name="train.npy"): 
     train_nparray=np.load(name)
     return train_nparray
 
-
-# In[41]:
 
 
 def normalize_img(grey_image):
@@ -206,8 +171,6 @@ def normalize_img(grey_image):
     grey_image = (grey_image - min_val)/range_val
     return grey_image
 
-
-# In[42]:
 
 
 def merge_images(img_data):
@@ -229,22 +192,15 @@ def merge_images(img_data):
     return img1
 
 
-# In[43]:
-
 
 def add_axis(img):
     """use it for adding one axis ie the 1 dimensio in the end.."""
     return img[...,np.newaxis]
 
 
-# In[44]:
-
-
 def reshape_image(img, x,y):
     return cv.resize(img,(x,y), interpolation = cv.INTER_CUBIC)
 
-
-# In[45]:
 
 
 def prepare_train_data(dict_videos,train_names): 
@@ -271,8 +227,6 @@ def prepare_train_data(dict_videos,train_names):
     return train_nparray
 
 
-# In[46]:
-
 
 def preprocess_masks(): 
    """
@@ -288,58 +242,7 @@ def preprocess_masks():
        mask_list.append(axis_img)     
    masks=create_train_nparray(mask_list)
    return masks
-
-
-# In[47]:
-
-
-masks=preprocess_masks()
-
-
-# In[ ]:
-
-
-res=np.array(masks[0][:,:,0])
-plt.imshow("",res)
-#getting this error while running above code, I remember that for train and test numpy arrays i could print them
-# unhashable type: 'numpy.ndarray
-
-
-# In[19]:
-
-
-dict_videos_train=data_video_dictionary(train_names)
-dict_videos_test=data_video_dictionary(test_names)
-
-
-# In[48]:
-
-
-train_nparray=prepare_variance_data(dict_videos_train,train_names)
-#it works perfectly on one inspection
-
-
-# In[49]:
-
-
-train_nparray.shape
-
-
-# In[50]:
-
-
-test_nparray=prepare_variance_data(dict_videos_test,test_names) #same way of preparing both though..
-
-
-# In[26]:
-
-
-test_nparray.shape
-
-
-# In[51]:
-
-
+   
 def train_model(): 
     """ 
     
@@ -349,17 +252,7 @@ def train_model():
     model.fit(train_nparray, masks, batch_size=1, epochs=30, verbose=1, shuffle=True)
     model.save("model.h5")
     return None
-
-
-# In[52]:
-
-
-train_model()
-
-
-# In[53]:
-
-
+   
 def predict(test_nparray,model_path,save_result_path):
     """predict values and save then in a single numpy array."""
     #loading model and predicting mask
@@ -370,14 +263,6 @@ def predict(test_nparray,model_path,save_result_path):
     np.save(save_result_path+'/prediction.npy', prediction)
     return prediction
 
-
-# In[54]:
-
-
-prediction=predict(test_nparray,"model.h5",'result')
-
-
-# In[55]:
 
 
 def round_float_image(img): 
@@ -394,8 +279,6 @@ def round_float_image(img):
     #change this carefully for multiclass unet.
     return new_img
 
-
-# In[56]:
 
 
 def prepare_masks(result): 
@@ -424,45 +307,45 @@ def prepare_masks(result):
     return masks
 
 
-# In[57]:
-
-
 def write_masks(masks): 
     for k,v in masks.items():
         cv.imwrite('masks/' + k + '.png', v)
 
 
-# In[58]:
+
+train_names=get_train_names()
+test_names=get_test_names()
+
+
+
+
+masks=preprocess_masks()
+
+
+
+dict_videos_train=data_video_dictionary(train_names)
+dict_videos_test=data_video_dictionary(test_names)
+
+
+
+train_nparray=prepare_variance_data(dict_videos_train,train_names)
+train_nparray.shape
+test_nparray=prepare_variance_data(dict_videos_test,test_names) #same way of preparing both though..
+
+test_nparray.shape
+
+
+train_model()
+
+
+prediction=predict(test_nparray,"model.h5",'result')
 
 
 result=np.load('result/prediction.npy')
 result.shape
 
 
-# In[60]:
-
-
 np.unique(result[0])
-
-
-# In[61]:
-
 
 masks=prepare_masks(result)
 write_masks(masks)
-#getting 15.5 % from this.. so result unpacking also works.. now need to think about what to do for multiclass unet..
-#getting 9.2% on threshold 0.5 for multiclass.. 
-#getting .... on threshold 1.0 for multiclass
-
-
-# In[ ]:
-
-
-"""
-The goal right now is :-= 
-0) Produce simple unet result and check if you still get 14.4%
-1. Execute and produce output for multi unet with simple normalized and merged images..
-2. Execute variance based ones
-3. If time, there wont be .. play with gradients and try to find what could be done.
-"""
-
