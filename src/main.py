@@ -8,6 +8,7 @@ import preproc as pre
 import read_data as pre
 import read_data as read
 import optical_flow as opt
+import prepare_unet_data as unetdata
 
 if __name__ == '__main__':
 
@@ -77,3 +78,11 @@ if __name__ == '__main__':
     np.save('../dataset/opflow.npy',np.array(opt_flow_data)) # saving the data to the disk
     del opt_flow_data # deleting the data from the memory
 
+    if args.unet =='T':
+        if args.mode='test': 
+            unetdata.test_unet_model(whole_data)
+        if args.mode=='train': 
+            unetdata.train_unet_model(whole_data,mask_list)
+        
+            
+            
