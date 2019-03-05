@@ -1,8 +1,4 @@
 
-# coding: utf-8
-
-# In[ ]:
-
 
 import cv2 as cv
 import os
@@ -10,37 +6,6 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import copy
 import numpy as np
-
-
-# In[ ]:
-
-
-print(tp.__version__)
-
-
-# In[ ]:
-
-
-img = cv.imread("C:\\Users\\Jayant\\Pictures\\wallpapers\\page.jpg",cv.IMREAD_GRAYSCALE)
-print(type(img))
-print(type(img.shape))
-
-
-# In[ ]:
-
-
-#resizing an image
-resized= cv.resize(img, (250,250))
-# cv2.imshow("Larry Page", resized)
-# cv2.waitKey(0)
-lum_img = img[:,:]
-#imgplot = plt.imshow(resized,cmap="hot")
-#resizing the already resized image
-resized_2=cv.resize(resized, (650,650))
-imgplot = plt.imshow(resized_2,cmap="hot")
-
-
-# In[ ]:
 
 
 def get_train_names():
@@ -69,9 +34,6 @@ train_names=get_train_names()
 test_names=get_test_names()
 
 
-# In[ ]:
-
-
 def data_video_dictionary(train_names): 
     """
     creates a dictionary of dictionary with following structure
@@ -96,8 +58,6 @@ def data_video_dictionary(train_names):
 dict_videos_test =data_video_dictionary(test_names)
 
 
-# In[ ]:
-
 
 def get_mask_dictionary(train_names): 
     """
@@ -112,9 +72,8 @@ def get_mask_dictionary(train_names):
 mask=get_mask_dictionary(train_names)
 #imgplot = plt.imshow(mask[train_names[0]],cmap="hot")
 
-
-# In[ ]:
-
+"""
+#This is general structure defined to loop over all values. Most functions in this file are created using the below template/
 
 def operation_on_images(dict_videos,train_names,image_name="frame00"): 
     result={}
@@ -130,15 +89,10 @@ def operation_on_images(dict_videos,train_names,image_name="frame00"):
 operation_on_images(dict_videos_train,train_names)
 
 
-# In[ ]:
-
-
 len(dict_videos_train)
 len(dict_videos_train[train_names[0]])
 
-
-# In[ ]:
-
+"""
 
 #find shortest x and y for images in dataset? 
 #can resize to a generic normal dimension also.. but lets try this first.
@@ -160,18 +114,11 @@ def operation_on_images_smallest_dimensions(dict_videos,train_names):
     return [x,y]
 
 
-# In[ ]:
-
-
 list_xy= operation_on_images_smallest_dimensions(dict_videos,train_names)
 print("smallest dimensions are, for x="+str(list_xy[0])+" and for y="+str(list_xy[1]))
 
-
-# In[ ]:
-
-
 #resizing every image to 128*128 
-
+#can put result of above method as well
 def operation_on_images_resizing(dict_videos,train_names,dimensions=[128,128]): 
     dict_videos_resized = copy.deepcopy(dict_videos)
     for name in train_names:
@@ -185,41 +132,12 @@ def operation_on_images_resizing(dict_videos,train_names,dimensions=[128,128]):
     return dict_videos_resized
 
 dict_videos_resized= operation_on_images_resizing(dict_videos_test,test_names)
-#takes 5 minutes to run 
+#takes 5 minutes to run, not an efficient way to handle this data then. Dictionaries are not particularly good. Therefore the shift in main.py is made to write code using del and lists.
 
 
-# In[ ]:
 
 
-print(dict_videos_resized['4bad52d5ef5f68e87523ba40aa870494a63c318da7ec7609e486e62f7f7a25e8'][str(int(0))].shape)
-
-
-# In[ ]:
-
-
-#image operations are taking damn too long!! the resizing especially!!
-#next step is fluctuation variation
-#play with image gradients,
-#play with adding frame images and doing something with them 
-# then create pipeline to train on unet
-# then create pipeline to train on some other model which is readily available..
-
-
-# In[ ]:
-
-
-#testing a few things 
-#https://stackoverflow.com/questions/17291455/how-to-get-an-average-picture-from-100-pictures-using-pil
-imarr=np.array(img,dtype=np.float)
-imgplot = plt.imshow(imarr,cmap="hot")
-
-
-# In[ ]:
-
-
-# fluctuation variation :  my intuition is that , on all pixels in 100 images.. we have 128*128 distributions 
-#and we can calculate variance in every pixel of all 100 frames and use that to predict labels first ??
-# can define variance_on_images_with_same dimension and also on variable dimensions ie without resizing..
+#legacy code, dont need resized variance. can calculate variance on original directly. And to feed into a model , resizing can be a different step. 
 def variance_on_images_resized(dict_videos,train_names,dimensions=(128,128),hop=1,scale=1): 
     dict_videos_mean={}
     dict_videos_variance={}
@@ -249,10 +167,6 @@ def variance_on_images_resized(dict_videos,train_names,dimensions=(128,128),hop=
 #hop of 15 is used because Ciliary motion does 5-6 oscillations in 1 frame..so, 15*6 will capture those oscillations
 dict_videos_mean,dict_videos_variance=variance_on_images_resized(dict_videos_resized,test_names,hop=4,scale=3)
 
-
-# In[ ]:
-
-
 def variance_on_images_original(dict_videos,train_names,hop=1,scale=1): 
     dict_videos_mean={}
     dict_videos_variance={}
@@ -279,20 +193,11 @@ def variance_on_images_original(dict_videos,train_names,hop=1,scale=1):
         #calculating square of X-mean
         #result action.     
     return dict_videos_mean,dict_videos_variance
-#hop of 15 is used because Ciliary motion does 5-6 oscillations in 1 frame..so, 15*6 will capture those oscillations
+
+#hop of 4-15 is used because Ciliary motion does 5-6 oscillations in 1 frame..so, 15*6 will capture those oscillations
 dict_videos_mean,dict_videos_variance=variance_on_images_original(dict_videos_test,test_names,hop=1,scale=3)
 
-
-# In[ ]:
-
-
-imgplot = plt.imshow(dict_videos_variance[test_names[50]],cmap="hot")
-# best to input in a CNN if possible is hop=4, scale =2 variation...
-
-
-# In[ ]:
-
-
+#below code represents experiments with various thresholds and their performance.
 #the above method..how to threshold?? and create masks??
 #important thresholding link :-https://docs.opencv.org/3.4/d7/d4d/tutorial_py_thresholding.html
 trainer=train_names[0]
@@ -322,14 +227,9 @@ axarr[1,1].imshow(images[4])
 axarr[1,2].imshow(images[5])
 
 
-# In[ ]:
-
 
 #lets threshold and create masks from it and compare with a train_set accuracy.. and then if its better than 25% ,
 #do the same for test. and then do unet.. 
-
-
-# In[ ]:
 
 
 def thresold_variance(dict_videos_variance,threshold=10):
@@ -346,14 +246,8 @@ def create_masks(dict_threshold):
     return dict_threshold
 
 
-# In[ ]:
-
-
 masks=create_masks(thresold_variance(dict_videos_variance,5))
 #imgplot = plt.imshow(masks[test_names[50]])
-
-
-# In[ ]:
 
 
 #create masks.pngs for variance...
@@ -368,9 +262,6 @@ write_masks(masks,test_names)
 #getting 16.
 
 
-# In[ ]:
-
-
 import tarfile
 #getting zero, doing something wrong maybe masks are not right..This is the worng part.. use tar cvf p2.tar *.png in the test_masks folder..
 def make_tarfile(output_filename='p2sub.tar', source_dir='../dataset/test_masks'):
@@ -379,10 +270,4 @@ def make_tarfile(output_filename='p2sub.tar', source_dir='../dataset/test_masks'
         tar.close()
         #make tar of all images instead... of this...
 make_tarfile()        
-
-
-# In[ ]:
-
-
-#still giving zero accuracy for variance ?
 
