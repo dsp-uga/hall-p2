@@ -7,10 +7,15 @@ Project 2: Cillia Segmentation Contributions
 
 [Jayant Parashar](https://github.com/Jayant1234)
   * Fluctuation Variance
-  * UNets
+  * UNet experimentation with fluctuation variance and optical flow
+  * Data Preprocessing
+  * Contributed in Readme and Wiki
 
 
 [Priyank Malviya](https://github.com/priyankmalviya)
-  * Project Manager
   * Optical Flow
+  * Data Preparation for UNet
+  * Data Preprocessing
+  * UNet model building
+  * Contributed in Readme and Wiki
   
