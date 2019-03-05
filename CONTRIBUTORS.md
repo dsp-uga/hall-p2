@@ -1,7 +1,8 @@
 Project 2: Cillia Segmentation Contributions
 
 [Caleb Crumley](https://github.com/crumleyc)
-  * Experimentation
+  * Data Preprocessing experimentation
+  * Optical Flow experimentation
   * Documentation
 
 
