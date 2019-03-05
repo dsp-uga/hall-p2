@@ -18,8 +18,8 @@ This project took different approaches to identify the cillia with fluctuation v
     * Due to these assumptions, we can solve for the change in postion given some change in time, which is what optical flow is. Looking at how much the postion changed in respect to left/right and also up/down. There are different methods of finding the remaining variables of the equation, which we are using the Dense Optical Flow method, using the Gunner Farneback's algorithm. These different methods are implemented in the package [OpenCV](https://opencv.org/). This method takes the optical flow for all the points in the frame, where other methods look at specific regions of the frames. 
     * This method used different preprocessing methods before the Optical Flow was calculated. We mean centered, finiding the mean of an image and subtracting it from each pixel, and or normalizing the images. 
   * UNets
-  UNets have proved to be highly efficient and effective in biomedical imaging domain. They don't require as much data as other CNN architectures such as FCNs do. 
-We implement Unets from [this github repository](https://github.com/zhixuhao/unet). It is based on the model built by researchers who invented Unets. 
+    * UNets have proved to be highly efficient and effective in biomedical imaging domain. They don't require as much data as other CNN architectures such as FCNs do. 
+    * We implement Unets from [this github repository](https://github.com/zhixuhao/unet). It is based on the model built by researchers who invented Unets. 
 
 ### Getting Started
 These next two sections will help you run this project on your local machine to attempt at replicating our results. 
