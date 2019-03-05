@@ -10,7 +10,7 @@ Project 2: Cillia Segmentation Contributions
   * UNet experimentation with fluctuation variance and optical flow
   * Data Preprocessing
   * Contributed in Readme and Wiki
-
+  * Documentation
 
 [Priyank Malviya](https://github.com/priyankmalviya)
   * Optical Flow
@@ -18,4 +18,6 @@ Project 2: Cillia Segmentation Contributions
   * Data Preprocessing
   * UNet model building
   * Contributed in Readme and Wiki
+  * Documentation
+  * Packaging 
   
