@@ -8,7 +8,7 @@ This repository takes small video clips of cilla and returns segmetations of the
 
 This project took different approaches to identify the cillia with fluctuation variance, optical flow, and unets. 
   * Fluctuation Variance
-    * We take the frames of each video and compute the variance across frames. This will tell us how much each pixel has changed compared to the mean, but also will help us identify regions that could be Cillia. 
+    * We compute the variance across frames. This will tell us how much each pixel has changed compared to the mean, but also will help us identify regions that could be Cillia. 
   * Optical Flow
     * This approach looks at two frames at a time to find movement of objects between them. It creates a 2D vector that shows the displacement of each pixel from frame to frame. 
     * Opitcal Flow has three assumptions: 
@@ -25,7 +25,7 @@ We implement Unets from [this github repository](https://github.com/zhixuhao/une
 These next two sections will help you run this project on your local machine to attempt at replicating our results. 
 
 #### Prerequisites
-This project uses Python 3 with different packages:
+This project uses different Python packages listed below:
   * [Keras](https://keras.io/): A deep learning package that is used to build the UNets that really makes the code easy to follow.
   * [OpenCv](https://opencv.org/): The library that contains different methods to processes images and implements the Optical Flow functions
   * [Skimage](https://scikit-image.org/): Another image processing library that we used for different prepressing [filters](http://scikit-image.org/docs/dev/api/skimage.filters.html). We used these 4 filters: roberts, sobel, scharr, and prewitt. 
@@ -37,9 +37,7 @@ This project uses Python 3 with different packages:
 ### Built With
   * [Python 3.7](https://www.python.org/)
 
-### Contributing
-
 ### Authors
-
+The list of authors and their contributions are listed here -- [Contributors](CONTRIBUTORS.md)
 ### License
 This project is licensed under the MIT Liscense -- [License](LICENSE)
