@@ -59,9 +59,42 @@ if you chose to. Our main model takes 5 different command line arguments, descri
     
 An example running this program would be ```$ python main.py --mode 'train' --preproc_type 'mean' --optical_flow 'full' --image_processing 'sobel' --unet 'T' ```
 
-
 ### Data 
 Data is downloaded from google cloud bucket with following link 
+
+### Results 
+
+#### [Unet](https://github.com/dsp-uga/hall-p2/wiki/Unet)
+
+|Unet Type   | Variance weight  | optical weight  |   | IOU Accuracy  |
+|---|---|---|---|---|
+| Multi  |  0 | 0  |   | 9.3  |
+| Binary  | 0  | 0  |   | 15.5  |
+|  Binary |  0.2 |  0.2|   |  5. |
+|  Binary |  0.2 | 0|   |  17.2|
+|  Binary |  1.0 | 0|   |  8.4|
+
+#### [Optical Flow](https://github.com/dsp-uga/hall-p2/wiki/Optical-Flow)
+
+|Method of Image | IOU Accuracy  |
+|---|---|
+| Merge 100 frames into 1 image| 11.6  |
+| First 2 frames |  12.4  |
+|  Step-wise |    13.0 |
+|  All 100 frames |  21.2|
+| Sobel Operator with all 100 frames | 0.8  |
+
+#### [Fluctuation Variance](https://github.com/dsp-uga/hall-p2/wiki/Variance) 
+
+|  scale | hop  | threshold  |   | IOU Accuracy |
+|---|---|---|---|---|
+|  2 |4   |10   |   |17.1  |
+|  3 | 4  | 10  |   |18   |
+|  3 | 1  |  5 |   | 18.2  |
+|  2 | 8  | 10  |   | 16.6  |
+|  2 | 8  | Mean+ 1 S.D(Standard Deviation) |   | 19.5 (Approach 2)  |
+
+
  
 The list of authors and their contributions are listed here -- [Contributors](CONTRIBUTORS.md)
 ### License
