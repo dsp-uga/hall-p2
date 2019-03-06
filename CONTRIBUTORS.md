@@ -11,6 +11,7 @@ Project 2: Cillia Segmentation Contributions
   * Data Preprocessing
   * Contributed in Readme and Wiki
   * Documentation
+  * UNet model building
 
 [Priyank Malviya](https://github.com/priyankmalviya)
   * Optical Flow
