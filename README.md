@@ -97,10 +97,10 @@ Data could be downloaded using the scritps in the script folder of this repo, or
 
 ## References
 
-[Unet Paper](https://arxiv.org/abs/1505.04597)
-[Unet Repo, third party](https://github.com/zhixuhao/unet)
-[Setting up Tensorflow GPU](https://medium.com/@raza.shahzad/setting-up-tensorflow-gpu-keras-in-conda-on-windows-10-75d4fd498198)
-[Optical Flow](https://en.wikipedia.org/wiki/Optical_flow)
+1. [Unet Paper](https://arxiv.org/abs/1505.04597)
+2. [Unet Repo, third party](https://github.com/zhixuhao/unet)
+3. [Setting up Tensorflow GPU](https://medium.com/@raza.shahzad/setting-up-tensorflow-gpu-keras-in-conda-on-windows-10-75d4fd498198)
+4. [Optical Flow](https://en.wikipedia.org/wiki/Optical_flow)
  
 The list of authors and their contributions are listed here -- [Contributors](CONTRIBUTORS.md)
 ### License
