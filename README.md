@@ -79,6 +79,9 @@ Data could be downloaded using the scritps in the script folder of this repo, or
 2. [Unet Repo, third party](https://github.com/zhixuhao/unet)
 3. [Setting up Tensorflow GPU](https://medium.com/@raza.shahzad/setting-up-tensorflow-gpu-keras-in-conda-on-windows-10-75d4fd498198)
 4. [Optical Flow](https://en.wikipedia.org/wiki/Optical_flow)
+5. https://www.kdnuggets.com/2016/11/intuitive-explanation-convolutional-neural-networks.html
+6. https://elitedatascience.com/keras-tutorial-deep-learning-in-python
+7. https://course.fast.ai/videos/?lesson=3
  
 The list of authors and their contributions are listed here -- [Contributors](CONTRIBUTORS.md)
 ### License
