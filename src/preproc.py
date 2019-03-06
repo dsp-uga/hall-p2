@@ -57,20 +57,27 @@ def merge_images(whole_data):
     return merged_data
 
 def normalize_img(whole_data):
+    '''
+    This function takes as input the list of list containing the data. Perform normalization 
+    on each image in the data and returns a list of list.
+    '''
     normalized_data = []
-    for i in range(0,len(whole_data)):
+    for i in range(0,len(whole_data)): 
         normalize_data_img = []
         for j in range(0, len(whole_data[i])):
-            min_val = np.amin(whole_data[i][j])
-            max_val = np.amax(whole_data[i][j])
-            range_val = max_val - min_val
-            grey_image = whole_data[i][j] - min_val/range_val
-            normalize_data_img.append(grey_image)
-            #deleting the previous image from the memory
-            del grey_image
-        normalized_data.append(normalize_data_img)
-        del normalize_data_img
+            min_val = np.amin(whole_data[i][j]) #finding the minmimum value of the image
+            max_val = np.amax(whole_data[i][j]) # finding the maximum value of the image
+            range_val = max_val - min_val #getting the range
+            grey_image = whole_data[i][j] - min_val/range_val #normalizing the image by subtracting minimum value from each pixel and then dividing it by the range
+            normalize_data_img.append(grey_image) #appending the image to the list
+            del grey_image #deleting current image from memory
+        normalized_data.append(normalize_data_img) #appending the list of images to a list
+        del normalize_data_img #deleting the list of image from the memory
     return normalized_data
 
 def reshape_image(img, x,y):
+    '''
+    This function takes as an input an image and x and y two integer values. Resizes the image to the image of size x*y
+    and returns the new resized image.
+    '''
     return cv.resize(img,(x,y), interpolation = cv.INTER_CUBIC)
