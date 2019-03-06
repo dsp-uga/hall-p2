@@ -19,10 +19,14 @@ def normalize_img_unet(data):
     return normalize_unet_data
 
 def create_unet_data(img_list):
+    '''
+    This function converts a list of images into a nparray. By taking the length of list of images, it creates an np array of shape
+    (image list length ,256,256,1)
+    '''
     train_nparray=np.ndarray(shape=(len(image_list), 256, 256, 1),
-                     dtype=np.float32)
+                     dtype=np.float32) #initialized the np array 
     for i in range(0,len(image_list)):
-        train_nparray[i]=image_list[i]
+        train_nparray[i]=image_list[i] # fills the np array with the images in the list
 
     return train_nparray
 
