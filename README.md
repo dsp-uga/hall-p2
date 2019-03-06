@@ -95,6 +95,12 @@ Data could be downloaded using the scritps in the script folder of this repo, or
 |  2 | 8  | Mean+ 1 S.D(Standard Deviation) |   | 19.5 (Approach 2)  |
 
 
+## References
+
+[Unet Paper](https://arxiv.org/abs/1505.04597)
+[Unet Repo, third party](https://github.com/zhixuhao/unet)
+[Setting up Tensorflow GPU](https://medium.com/@raza.shahzad/setting-up-tensorflow-gpu-keras-in-conda-on-windows-10-75d4fd498198)
+[Optical Flow](https://en.wikipedia.org/wiki/Optical_flow)
  
 The list of authors and their contributions are listed here -- [Contributors](CONTRIBUTORS.md)
 ### License
