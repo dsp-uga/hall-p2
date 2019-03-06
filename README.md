@@ -60,7 +60,7 @@ if you chose to. Our main model takes 5 different command line arguments, descri
 An example running this program would be ```$ python main.py --mode 'train' --preproc_type 'mean' --optical_flow 'full' --image_processing 'sobel' --unet 'T' ```
 
 ### Data 
-Data is downloaded from google cloud bucket with following link 
+Data could be downloaded using the scritps in the script folder of this repo, or running the main script downloads the data automatically on the local system.
 
 ### Results 
 
