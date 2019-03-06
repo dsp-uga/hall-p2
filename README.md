@@ -2,20 +2,20 @@
 
 ## Ciliary Motion Extraction : Cilia Segmentation
 
-Cilia is a hair-like object protruding out of cell-bodies. Our task is to segment them and identify regions with Celia. This problem is particularly hard and lack of data makes it even harder. We only had 214 video instance to train.  
-The core aim of a learning algorithim in Cilia segmentation should be to learn texture of Celia and how it moves in a video. 
+Cilia is a hair-like object protruding out of cell-bodies. Our task is to segment them and identify regions with Cilia. This problem is particularly hard and lack of data makes it even harder. We only had 214 video instance to train.  
+The core aim of a learning algorithim in Cilia segmentation should be to learn texture of Cilia and how it moves in a video. 
 
 This repository takes small video clips of cilla and returns segmetations of the frames to identify the location of the cillia. This project was created for CSCI 8360 Data Science Practicum at the University of Georgia. 
 
 ### Approach
-This project took different approaches to identify the cillia with fluctuation variance, optical flow, and unets. 
+This project took different approaches to identify the cilia with fluctuation variance, optical flow, and unets. 
   * [Fluctuation Variance](https://github.com/dsp-uga/hall-p2/wiki/Variance)
     * We compute the variance across frames. This will tell us how much each pixel has changed compared to the mean, but also will help us identify regions that could be Cillia. 
   * [Optical Flow](https://github.com/dsp-uga/hall-p2/wiki/Optical-Flow)
     * This approach looks at two frames at a time to find movement of objects between them. It creates a 2D vector that shows the displacement of each pixel from frame to frame. 
      
   * [Unet](https://github.com/dsp-uga/hall-p2/wiki/Unet)
-    * UNets have proved to be highly efficient and effective in biomedical imaging domain. They don't require as much data as other CNN architectures such as FCNs do. 
+    * UNets have proved to be highly efficient and effective in biomedical imaging domain. They don't require as much data as other CNN architectures such as FCNs. 
     * We implement Unets from [this github repository](https://github.com/zhixuhao/unet). It is based on the model built by researchers who invented Unets. 
 
 ### Getting Started
