@@ -32,32 +32,10 @@ This project uses different Python packages listed below:
 #### Installing Dependencies
 [Conda](https://conda.io/en/latest/) will easily mange the enviornment and install all dependencies for these libraries that we used. 
 
-### [How To Run](https://github.com/dsp-uga/hall-p2/wiki/How-to-run)
-In the src folder, the main function will load in the data, preprocess it, and run the data through the UNet to train/test the model
-if you chose to. Our main model takes 5 different command line arguments, described below:
-  * --mode:
-    * train  &rarr; If you want to use the training data to be preprocessed and if decided, train the model.
-    * test  &rarr; If you want to preprocess and test the UNet on the testing data.
-  * --preproc_type:
-    * full  &rarr; If you want the data to be both mean-centerd and then normalized 
-    * mean  &rarr; If you want the data to only be mean-centered
-    * normalize  &rarr; If you want the data to only be normalized 
-  * --optical_flow:
-    * full  &rarr; If you want to find the optical flow for all frames per video
-    * step_wise  &rarr; If you want to take every Xth frame per video
-    * first_two  &rarr; If you want to only find the optical flow for the first two images
-  * --image_processing:
-    * none &rarr; If you do not want to apply any filter to the frames before finding the optical flow
-    * These 4 filters are used for edge detection and calculate the gradient in differnet ways:
-      * sobel 
-      * roberts 
-      * prewitt
-      * kirsch
-  * --unet:
-    * T  &rarr; If you want to feed these images into the UNet
-    * F &rarr; If you do not want to feed these images into the UNet
-    
-An example running this program would be ```$ python main.py --mode 'train' --preproc_type 'mean' --optical_flow 'full' --image_processing 'sobel' --unet 'T' ```
+### How to run
+This project could be downloaded and run using the main script. It will automatically download the data and 
+implement various techniques on the data.
+Please refer the link [Wiki](https://github.com/dsp-uga/hall-p2/wiki/How-to-run) for details on how to run this project.
 
 ### Data 
 Data could be downloaded using the scritps in the script folder of this repo, or running the main script downloads the data automatically on the local system.
