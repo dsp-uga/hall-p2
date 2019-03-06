@@ -9,12 +9,12 @@ This repository takes small video clips of cilla and returns segmetations of the
 
 ### Approach
 This project took different approaches to identify the cillia with fluctuation variance, optical flow, and unets. 
-  * [Fluctuation Variance]()
+  * [Fluctuation Variance](https://github.com/dsp-uga/hall-p2/wiki/Variance)
     * We compute the variance across frames. This will tell us how much each pixel has changed compared to the mean, but also will help us identify regions that could be Cillia. 
-  * [Optical Flow]()
+  * [Optical Flow](https://github.com/dsp-uga/hall-p2/wiki/Optical-Flow)
     * This approach looks at two frames at a time to find movement of objects between them. It creates a 2D vector that shows the displacement of each pixel from frame to frame. 
      
-  * [UNets]()
+  * [Unet](https://github.com/dsp-uga/hall-p2/wiki/Unet)
     * UNets have proved to be highly efficient and effective in biomedical imaging domain. They don't require as much data as other CNN architectures such as FCNs do. 
     * We implement Unets from [this github repository](https://github.com/zhixuhao/unet). It is based on the model built by researchers who invented Unets. 
 
@@ -32,7 +32,7 @@ This project uses different Python packages listed below:
 #### Installing Dependencies
 [Conda](https://conda.io/en/latest/) will easily mange the enviornment and install all dependencies for these libraries that we used. 
 
-### How To Run
+### [How To Run](https://github.com/dsp-uga/hall-p2/wiki/How-to-run)
 In the src folder, the main function will load in the data, preprocess it, and run the data through the UNet to train/test the model
 if you chose to. Our main model takes 5 different command line arguments, described below:
   * --mode:
